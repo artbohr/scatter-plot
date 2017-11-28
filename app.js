@@ -8,12 +8,12 @@ d3.json(URL).get((error,data)=>{
   if(error)console.log(error);
 
   const y = d3.scaleLinear()
-                .domain(d3.extent(data, (d) => { return d.Place; }))
+                .domain(d3.extent(data, d => d.Place))
                 .range([0, height])
                 .nice();
 
   const x = d3.scaleLinear()
-                .domain(d3.extent(data, (d) => { return d.Seconds; }))
+                .domain(d3.extent(data, d => d.Seconds))
                 .range([width, 0])
                 .nice();
 
@@ -27,21 +27,21 @@ d3.json(URL).get((error,data)=>{
             .data(data)
             .enter().append("circle")
                   .attr("r", 5)
-                  .attr("cx", function(d) { return x(d.Seconds); })
-                  .attr("cy", function(d) { return y(d.Place); })
+                  .attr("cx", d => x(d.Seconds))
+                  .attr("cy", d => y(d.Place))
                   .attr("fill", "blue")
-                  .on("mouseover", function() {
-                    d3.select(this).style("fill", "#BDC2C6");
-                    tooltip.style("visibility", "visible")
+                    .on("mouseover", function() {
+                      d3.select(this).style("fill", "#BDC2C6");
+                      tooltip.style("visibility", "visible")
+                      })
+                    .on("mouseout", function() {
+                      d3.select(this).style("fill", "blue");
+                      tooltip.style("visibility", "hidden");
                     })
-                  .on("mouseout", function() {
-                    d3.select(this).style("fill", "blue");
-                    tooltip.style("visibility", "hidden");
-                  })
-                  .on("mousemove", function(d) {
-                    tooltip.select("text").text(`#${d.Place} ${d.Name} from ${d.Nationality}
-                       in ${d.Year} made it in ${d.Seconds} seconds`);
-                  });
+                    .on("mousemove", function(d) {
+                      tooltip.select("text").text(`#${d.Place} ${d.Name} from ${d.Nationality}
+                         in ${d.Year} made it in ${d.Seconds} seconds`);
+                    });
 
   let tooltip = chartGroup.append("g").attr("class","tooltip").style("visibility", "hidden");
   tooltip.append("text").attr("x","70").attr("y","15").style("font-size","16px").attr("font-weight","bold");

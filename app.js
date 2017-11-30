@@ -1,4 +1,4 @@
-const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json"
+const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json";
 
 const margin = {top: 20, right: 20, bottom: 50, left: 50},
       width = 950 - margin.left - margin.right,
@@ -35,7 +35,7 @@ d3.json(URL).get((error,data)=>{
                   .attr("fill", "blue")
                     .on("mouseover", function() {
                       d3.select(this).style("fill", "#BDC2C6");
-                      tooltip.style("visibility", "visible")
+                      tooltip.style("visibility", "visible");
                       })
                     .on("mouseout", function() {
                       d3.select(this).style("fill", "blue");
@@ -64,7 +64,7 @@ d3.json(URL).get((error,data)=>{
       .attr("dy", "1em")
       .style("text-anchor", "middle")
       .style("font-size","20px")
-      .text("Place")
+      .text("Place");
 
   chartGroup.append("g").attr("class","axis y").call(yAxis);
   chartGroup.append("g").attr("class", "axis x").attr("transform","translate(0,"+height+")").call(xAxis);

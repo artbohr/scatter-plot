@@ -1,8 +1,8 @@
 const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/cyclist-data.json"
 
-const margin = {top: 20, right: 20, bottom: 30, left: 50},
+const margin = {top: 20, right: 20, bottom: 50, left: 50},
       width = 950 - margin.left - margin.right,
-      height = 475;
+      height = 475 - margin.top - margin.bottom;
 
 d3.json(URL).get((error,data)=>{
   if(error)console.log(error);
@@ -20,7 +20,10 @@ d3.json(URL).get((error,data)=>{
   const yAxis = d3.axisLeft(y);
   const xAxis = d3.axisBottom(x);
 
-  const svg = d3.select("body").append("svg").attr("height","1500").attr("width","1000");
+  const svg = d3.select("body").append("svg")
+                .attr("height", height + margin.top + margin.bottom)
+                .attr("width", width + margin.left + margin.right);
+
   const chartGroup = svg.append("g").attr("transform","translate("+margin.left+","+margin.top+")");
 
   chartGroup.selectAll("circle")
